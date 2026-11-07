@@ -1,0 +1,64 @@
+{
+  "labels": [
+    "Normal",
+    "Mild",
+    "Moderate",
+    "Severe",
+    "Extremely Severe"
+  ],
+  "models": [
+    {
+      "name": "Dummy baseline",
+      "accuracy": 0.335,
+      "macro_f1": 0.1004
+    },
+    {
+      "name": "Logistic regression",
+      "accuracy": 0.4521,
+      "macro_f1": 0.2431
+    },
+    {
+      "name": "Random forest",
+      "accuracy": 0.4611,
+      "macro_f1": 0.2797
+    }
+  ],
+  "confusion_matrix": [
+    [
+      1030,
+      0,
+      162,
+      6,
+      292
+    ],
+    [
+      296,
+      0,
+      118,
+      3,
+      224
+    ],
+    [
+      375,
+      0,
+      201,
+      11,
+      613
+    ],
+    [
+      232,
+      0,
+      147,
+      6,
+      710
+    ],
+    [
+      223,
+      0,
+      164,
+      11,
+      1832
+    ]
+  ],
+  "notes": "Held-out 80/20 stratified test split (random state 42). These results are research benchmarks, not diagnostic accuracy."
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MATLAS local self-reflection and wellbeing app">
+    <title>MATLAS | Map your mind</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+  </head>
+  <body>
+    <canvas id="tunnel-canvas" aria-hidden="true"></canvas>
+    <section id="landing" class="landing" aria-label="Welcome to MATLAS">
+      <div class="landing-copy">
+        <h1 class="wordmark" data-wordmark><span>M</span><span>A</span><span>T</span><span>L</span><span>A</span><span>S</span></h1>
+        <p class="tagline">Know yourself.</p>
+        <button id="enter-matlas" class="primary landing-button" type="button">Begin</button>
+      </div>
+    </section>
+
+    <main id="app" class="shell" hidden>
+      <header class="site-header reveal">
+        <a class="brand wordmark" data-wordmark href="/" aria-label="MATLAS home"><span>M</span><span>A</span><span>T</span><span>L</span><span>A</span><span>S</span></a>
+        <div class="header-actions">
+          <details class="safety-menu">
+            <summary aria-label="Open menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></summary>
+            <div class="safety-card">
+              <p class="menu-title">Explore the assessments</p>
+              <a class="menu-disclaimer" href="/disclaimer">Read the results disclaimer</a>
+              <button class="menu-test" data-choose-test="dass" type="button"><strong>DASS-21</strong><span>Depression, anxiety, and stress screening.</span></button>
+              <button class="menu-test" data-choose-test="big-five" type="button"><strong>Big Five</strong><span>Five broad personality trait dimensions.</span></button>
+              <button class="menu-test" data-choose-test="mbti" type="button"><strong>MBTI-style</strong><span>Four preference pairs and type patterns.</span></button>
+              <button class="menu-test" data-choose-test="enneagram" type="button"><strong>Enneagram</strong><span>Nine motivation and behavior patterns.</span></button>
+              <button class="menu-test" data-choose-test="social-energy" type="button"><strong>Social energy</strong><span>Introvert, extrovert, or ambivert reflection.</span></button>
+            </div>
+          </details>
+        </div>
+      </header>
+
+      <section id="dass" class="panel active" aria-labelledby="dass-title">
+        <div class="panel-heading reveal">
+          <div><h2 id="dass-title">DASS-21</h2></div>
+          <p>DASS-21 is a self-report scale covering depression, anxiety, and stress. It asks how much each statement applied during the past week and organizes responses into three symptom dimensions.<br><a class="wiki-link" href="https://en.wikipedia.org/wiki/Depression_Anxiety_Stress_Scales" target="_blank" rel="noreferrer">Read more about DASS-21 on Wikipedia</a></p>
+        </div>
+        <form id="dass-form" novalidate>
+          <div id="dass-questions" class="questions"></div>
+          <button class="primary" type="submit">Show results</button>
+        </form>
+        <div id="dass-result" class="result" aria-live="polite"></div>
+        <div class="chart-wrap"><canvas id="dass-chart" aria-label="DASS-21 scores" role="img"></canvas></div>
+      </section>
+
+      <section id="big-five" class="panel" aria-labelledby="big-five-title">
+        <div class="panel-heading reveal">
+          <div><h2 id="big-five-title">IPIP-50 Big Five</h2></div>
+          <p>The Big Five, also called the five-factor model or OCEAN, describes personality across openness, conscientiousness, extraversion, agreeableness, and neuroticism. These are continuous dimensions, so people usually show a blend of trait levels.<br><a class="wiki-link" href="https://en.wikipedia.org/wiki/Big_Five_personality_traits" target="_blank" rel="noreferrer">Read more about the Big Five on Wikipedia</a></p>
+        </div>
+        <form id="personality-form" novalidate>
+          <div id="personality-questions" class="questions"></div>
+          <button class="primary" type="submit">View personality profile</button>
+        </form>
+        <div id="personality-result" class="result" aria-live="polite"></div>
+        <div class="chart-wrap"><canvas id="personality-chart" aria-label="Big Five trait profile" role="img"></canvas></div>
+      </section>
+
+      <section id="mbti" class="panel" aria-labelledby="mbti-title">
+        <div class="panel-heading reveal">
+          <div><h2 id="mbti-title">MBTI-style preferences</h2></div>
+          <p>This MBTI-style assessment explores four preference pairs: introversion or extraversion, sensing or intuition, thinking or feeling, and judging or perceiving. The combinations produce familiar four-letter patterns.<br><a class="wiki-link" href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator" target="_blank" rel="noreferrer">Read more about MBTI on Wikipedia</a></p>
+        </div>
+        <form id="mbti-form" novalidate>
+          <div id="mbti-questions" class="questions"></div>
+          <button class="primary" type="submit">Explore my preferences</button>
+        </form>
+        <div id="mbti-result" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="enneagram" class="panel" aria-labelledby="enneagram-title">
+        <div class="panel-heading reveal">
+          <div><h2 id="enneagram-title">Enneagram</h2></div>
+          <p>The Enneagram of Personality is commonly presented as nine interconnected personality styles, each associated with characteristic motivations, fears, and behavior patterns.<br><a class="wiki-link" href="https://en.wikipedia.org/wiki/Enneagram_of_personality" target="_blank" rel="noreferrer">Read more about the Enneagram on Wikipedia</a></p>
+        </div>
+        <form id="enneagram-form" novalidate>
+          <div id="enneagram-questions" class="questions"></div>
+          <button class="primary" type="submit">Explore my patterns</button>
+        </form>
+        <div id="enneagram-result" class="result" aria-live="polite"></div>
+      </section>
+
+      <section id="social-energy" class="panel" aria-labelledby="social-energy-title">
+        <div class="panel-heading reveal">
+          <div><h2 id="social-energy-title">Introvert, extrovert, or ambivert?</h2></div>
+          <p>Introversion and extraversion describe a broad personality dimension related to social engagement and stimulation. Many people fall somewhere between the two, so this reflection reports a tendency toward introvert, extrovert, or ambivert energy rather than a fixed identity.<br><a class="wiki-link" href="https://en.wikipedia.org/wiki/Extraversion_and_introversion" target="_blank" rel="noreferrer">Read more about introversion and extraversion on Wikipedia</a></p>
+        </div>
+        <form id="social-energy-form" novalidate>
+          <div id="social-energy-questions" class="questions"></div>
+          <button class="primary" type="submit">Explore my social energy</button>
+        </form>
+        <div id="social-energy-result" class="result" aria-live="polite"></div>
+      </section>
+    </main>
+    <div id="test-picker" class="overlay" hidden>
+      <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="picker-title">
+        <button class="overlay-close" data-close-overlay="test-picker" type="button" aria-label="Close">×</button>
+        <p class="eyebrow">About your map</p>
+        <h2 id="picker-title">Choose an assessment</h2>
+        <p class="overlay-intro">Each card explains what the test explores, how it is commonly used, and where to read more. Pick one path whenever you are ready.</p>
+        <div class="test-grid">
+          <article class="test-card"><button data-choose-test="dass" type="button"><strong>DASS-21</strong><span>Reflect on depression, anxiety, and stress symptoms from the past week.</span></button><a href="https://en.wikipedia.org/wiki/Depression_Anxiety_Stress_Scales" target="_blank" rel="noreferrer">Learn more ↗</a></article>
+          <article class="test-card"><button data-choose-test="big-five" type="button"><strong>Big Five</strong><span>Explore five broad personality traits through a 50-item inventory.</span></button><a href="https://en.wikipedia.org/wiki/Big_Five_personality_traits" target="_blank" rel="noreferrer">Learn more ↗</a></article>
+          <article class="test-card"><button data-choose-test="mbti" type="button"><strong>MBTI-style</strong><span>Explore four preference pairs and a possible type pattern.</span></button><a href="https://en.wikipedia.org/wiki/Myers%E2%80%93Briggs_Type_Indicator" target="_blank" rel="noreferrer">Learn more ↗</a></article>
+          <article class="test-card"><button data-choose-test="enneagram" type="button"><strong>Enneagram</strong><span>Reflect on motivations and patterns that feel familiar.</span></button><a href="https://en.wikipedia.org/wiki/Enneagram_of_personality" target="_blank" rel="noreferrer">Learn more ↗</a></article>
+          <article class="test-card"><button data-choose-test="social-energy" type="button"><strong>Social energy</strong><span>Explore whether your energy tends introvert, extrovert, or ambivert.</span></button><a href="https://en.wikipedia.org/wiki/Extraversion_and_introversion" target="_blank" rel="noreferrer">Learn more ↗</a></article>
+        </div>
+      </div>
+    </div>
+    <script src="/static/js/tunnel-wrap.js"></script>
+    <script src="/static/vendor/chart.umd.js"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>
